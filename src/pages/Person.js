@@ -1,4 +1,4 @@
-import React,{useReducer} from 'react';
+import React,{useReducer,useState} from 'react';
 import {GrFormPreviousLink} from 'react-icons/gr';
 import {GrFormNextLink} from 'react-icons/gr';
 import {AiOutlinePlusCircle} from 'react-icons/ai';
@@ -14,14 +14,18 @@ const initialState={
     power:0,
     agility:0,
     intelligence:0,
+    point:14,
+    weapon:''
 };
-let point=14;
 let i=0;
 const reducer=(state,action)=>
 {
     const Avatar=['avatar1','avatar2','avatar3','avatar4','avatar5','avatar6','avatar7','avatar8','avatar9','avatar10','avatar11','avatar12'];
     switch(action.type)
     {
+        case 'clickWeapon':
+            // console.log(action.payLoad);
+            return {...state,weapon:action.payLoad}; 
         case 'prevImage':
 
              --i;
@@ -31,7 +35,7 @@ const reducer=(state,action)=>
                 i=Avatar.length - 1;
             }
             
-            console.log(i);
+            // console.log(i);
             return {...state,image:Avatar[i]};
         case 'nextImage':
             i++;
@@ -45,30 +49,80 @@ const reducer=(state,action)=>
             if(state.power==6)
             {
                 state.power=5;
+                state.point++;
             }
-            point--;
-            return {...state,power:state.power+1};
+            if(state.point==0)
+            {
+                console.log('hello');
+                state.point++;
+                state.power--;
+            }
+            // point--;
+            // setPoint(point);
+            return {...state,power:state.power+1,point:state.point-1};
         case 'minPower':
             if(state.power==0)
             {
                 state.power=1;
+                state.point--;
             }
-            point++;
-            return {...state,power:state.power-1};
+            if(state.point==14)
+            {
+                state.power--;
+                state.point--;
+            }
+            // point++;
+            // setPoint(point);
+            return {...state,power:state.power-1,point:state.point+1};
         case 'addAgility':
             if(state.agility==6)
             {
                 state.agility=5;
+                state.point++;
             }
-            point--;
-            return {...state,agility:state.agility+1};
+            if(state.point==0)
+            {
+                state.agility--;
+                state.point++;
+            }
+            // point--;
+            // setPoint(point);
+            return {...state,agility:state.agility+1,point:state.point-1};
         case 'minAgility':
             if(state.agility==0)
             {
                 state.agility=1;
+                state.point--;
             }
-            point++;
-            return {...state,agility:state.agility-1};    
+            if(state.point==14)
+            {
+                state.agility++;
+                state.point--;
+            }
+            // point++;
+            // setPoint(point);
+            return {...state,agility:state.agility-1,point:state.point+1};
+        case 'addIntelligence':
+            if(state.intelligence==4)
+            {
+                state.intelligence--;
+                state.point++;
+            }
+            if(state.point==0)
+            {
+                state.intelligence--;
+                state.point++;
+            }
+            return {...state,intelligence:state.intelligence+1,point:state.point-1};
+        case 'minIntelligence':
+            if(state.intelligence==0)
+            {
+                state.intelligence++;
+                state.point--;
+            }
+            return {...state,intelligence:state.intelligence-1,point:state.point+1};
+        // case 'clickWeapon':
+        //     console.log(action.payLoad);    
     }
 }
 
@@ -77,6 +131,7 @@ const Person = () => {
     // const Avatar=['avatar1','avatar2','avatar3','avatar4','avatar5','avatar6','avatar7','avatar8','avatar9','avatar10','avatar11','avatar12'];
     // const [image,setImage]='avatar1';
     const [state,dispatch]=useReducer(reducer,initialState);
+    // let [point,setPoint]=useState(14);
     // console.log(state.image);
     return (
         <div>
@@ -88,7 +143,7 @@ const Person = () => {
                     <GrFormNextLink onClick={()=>{dispatch({type:'nextImage'})}}/>
                 </div>
                 <div className="point">
-                    <h3>Points left:{point}</h3>
+                    <h3>Points left:<span>{state.point}</span></h3>
                     <div>
                         <ImPower/>
                         <AiOutlinePlusCircle onClick={()=>{dispatch({type:'addPower'})}}/>
@@ -103,29 +158,29 @@ const Person = () => {
                     </div>
                     <div>
                         <GiWorld/>
-                        <AiOutlinePlusCircle/>
-                        <span>0</span>
-                        <AiOutlineMinusCircle/>
+                        <AiOutlinePlusCircle onClick={()=>{dispatch({type:'addIntelligence'})}}/>
+                        <span>{state.intelligence}</span>
+                        <AiOutlineMinusCircle onClick={()=>{dispatch({type:'minIntelligence'})}}/>
                     </div>
                 </div>
             </div>
             <div className="card-person">
                 {/* <Card name="sword" access="../assets/armes/axe.png"/> */}
-                <div>
-                    <img src={require('../assets/armes/sword.png').default}/>
-                    <h3>Sword</h3>
+                <div onClick={(e)=>{dispatch({type:'clickWeapon',payLoad:e.target.className})}} className="sword">
+                    <img src={require('../assets/armes/sword.png').default} className="sword" id={state.opacitySword}/>
+                    <h3 className="sword">Sword</h3>
                 </div>
-                <div>
-                    <img src={require('../assets/armes/axe.png').default}/>
-                    <h3>Axe</h3>
+                <div onClick={(e)=>{dispatch({type:'clickWeapon',payLoad:e.target.className})}} className="axe">
+                    <img src={require('../assets/armes/axe.png').default} className="axe" id={state.opacityAxe}/>
+                    <h3 className="axe">Axe</h3>
                 </div>
-                <div>
-                    <img src={require('../assets/armes/arche.png').default}/>
-                    <h3>Arche</h3>
+                <div onClick={(e)=>{dispatch({type:'clickWeapon',payLoad:e.target.className})}} className="arche">
+                    <img src={require('../assets/armes/arche.png').default} className="arche" id={state.opacityArche}/>
+                    <h3 className="arche">Arche</h3>
                 </div>
-                <div>
-                    <img src={require('../assets/armes/fleau.png').default}/>
-                    <h3>Fleau</h3>
+                <div onClick={(e)=>{dispatch({type:'clickWeapon',payLoad:e.target.className})}} className="fleau">
+                    <img src={require('../assets/armes/fleau.png').default} className="fleau" id={state.opacityFleau}/>
+                    <h3 className="fleau">Fleau</h3>
                 </div>
             </div>
             <div className="button">
