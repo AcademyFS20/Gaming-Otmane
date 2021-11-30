@@ -15,7 +15,11 @@ const initialState={
     agility:0,
     intelligence:0,
     point:14,
-    weapon:''
+    weapon:'',
+    opacitySword:'',
+    opacityFleau:'',
+    opacityArche:'',
+    opacityAxe:''
 };
 let i=0;
 const reducer=(state,action)=>
@@ -23,11 +27,23 @@ const reducer=(state,action)=>
     const Avatar=['avatar1','avatar2','avatar3','avatar4','avatar5','avatar6','avatar7','avatar8','avatar9','avatar10','avatar11','avatar12'];
     switch(action.type)
     {
-        case 'clickWeapon':
+        case 'clickSword':
+            // console.log(state.image);
             // console.log(action.payLoad);
-            return {...state,weapon:action.payLoad}; 
+            return {...state,weapon:action.payLoad,opacitySword:'opacitySword',opacityFleau:'',opacityArche:'',opacityAxe:''};
+        case 'clickAxe':
+            // console.log(state.image);
+            // console.log(action.payLoad);
+            return {...state,weapon:action.payLoad,opacitySword:'',opacityFleau:'',opacityArche:'',opacityAxe:'opacityAxe'};
+        case 'clickArche':
+            // console.log(action.payLoad);
+            return {...state,weapon:action.payLoad,opacitySword:'',opacityFleau:'',opacityArche:'opacityArche',opacityAxe:''};
+        case 'clickFleau':
+            // console.log(state.image);
+            // console.log(action.payLoad);
+            return {...state,weapon:action.payLoad,opacitySword:'',opacityFleau:'opacityFleau',opacityArche:'',opacityAxe:''}; 
         case 'prevImage':
-
+            // console.log(state.image);
              --i;
             
             if(i<0)
@@ -38,6 +54,7 @@ const reducer=(state,action)=>
             // console.log(i);
             return {...state,image:Avatar[i]};
         case 'nextImage':
+            // console.log(state.image);
             i++;
             if(i>Avatar.length-1)
             {
@@ -46,6 +63,7 @@ const reducer=(state,action)=>
             console.log(i);  
             return {...state,image:Avatar[i]};
         case 'addPower':
+            // console.log(state.image);
             if(state.power==6)
             {
                 state.power=5;
@@ -89,6 +107,7 @@ const reducer=(state,action)=>
             // setPoint(point);
             return {...state,agility:state.agility+1,point:state.point-1};
         case 'minAgility':
+            // console.log(state.image);
             if(state.agility==0)
             {
                 state.agility=1;
@@ -103,6 +122,7 @@ const reducer=(state,action)=>
             // setPoint(point);
             return {...state,agility:state.agility-1,point:state.point+1};
         case 'addIntelligence':
+            // console.log(state.image);
             if(state.intelligence==4)
             {
                 state.intelligence--;
@@ -115,6 +135,7 @@ const reducer=(state,action)=>
             }
             return {...state,intelligence:state.intelligence+1,point:state.point-1};
         case 'minIntelligence':
+            // console.log(state.image);
             if(state.intelligence==0)
             {
                 state.intelligence++;
@@ -122,7 +143,11 @@ const reducer=(state,action)=>
             }
             return {...state,intelligence:state.intelligence-1,point:state.point+1};
         // case 'clickWeapon':
-        //     console.log(action.payLoad);    
+        //     console.log(action.payLoad);
+        case 'RESET':
+            // let i=0;
+              console.log('reset')
+            // return {...state,image:Avatar[i],power:0,agility:0,intelligence:0,point:14,weapon:'',opacitySword:'',opacityFleau:'',opacityArche:'',opacityAxe:''}    
     }
 }
 
@@ -139,8 +164,9 @@ const Person = () => {
             <div className="person-header">
                 <div className="person">
                     <GrFormPreviousLink onClick={()=>{dispatch({type:'prevImage'})}}/>
+                    {/* {console.log(state.image)} */}
                     <img src={require('../assets/persos/avatars/'+state.image+'.png').default}/>
-                    <GrFormNextLink onClick={()=>{dispatch({type:'nextImage'})}}/>
+                    <GrFormNextLink onClick={()=>dispatch({type:'nextImage'})}/>
                 </div>
                 <div className="point">
                     <h3>Points left:<span>{state.point}</span></h3>
@@ -166,26 +192,26 @@ const Person = () => {
             </div>
             <div className="card-person">
                 {/* <Card name="sword" access="../assets/armes/axe.png"/> */}
-                <div onClick={(e)=>{dispatch({type:'clickWeapon',payLoad:e.target.className})}} className="sword">
+                <div onClick={(e)=>{dispatch({type:'clickSword',payLoad:e.target.className})}} className="sword">
                     <img src={require('../assets/armes/sword.png').default} className="sword" id={state.opacitySword}/>
                     <h3 className="sword">Sword</h3>
                 </div>
-                <div onClick={(e)=>{dispatch({type:'clickWeapon',payLoad:e.target.className})}} className="axe">
+                <div onClick={(e)=>{dispatch({type:'clickAxe',payLoad:e.target.className})}} className="axe">
                     <img src={require('../assets/armes/axe.png').default} className="axe" id={state.opacityAxe}/>
                     <h3 className="axe">Axe</h3>
                 </div>
-                <div onClick={(e)=>{dispatch({type:'clickWeapon',payLoad:e.target.className})}} className="arche">
+                <div onClick={(e)=>{dispatch({type:'clickArche',payLoad:e.target.className})}} className="arche">
                     <img src={require('../assets/armes/arche.png').default} className="arche" id={state.opacityArche}/>
                     <h3 className="arche">Arche</h3>
                 </div>
-                <div onClick={(e)=>{dispatch({type:'clickWeapon',payLoad:e.target.className})}} className="fleau">
+                <div onClick={(e)=>dispatch({type:'clickFleau',payLoad:e.target.className})} className="fleau">
                     <img src={require('../assets/armes/fleau.png').default} className="fleau" id={state.opacityFleau}/>
                     <h3 className="fleau">Fleau</h3>
                 </div>
             </div>
             <div className="button">
                 <button className="btn btn-success btn-lg">Create</button>
-                <button className="btn btn-warning btn-lg">Reset</button>
+                <button className="btn btn-warning btn-lg" onClick={() => dispatch({type:'RESET'})}>Reset</button>
             </div>
         </div>
     );

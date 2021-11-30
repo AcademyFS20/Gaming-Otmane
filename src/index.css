@@ -485,3 +485,7 @@ margin-bottom:30px;
   display:flex;
   justify-content:center;
 }
+#opacitySword,#opacityArche,#opacityAxe,#opacityFleau
+{
+  opacity:1;
+}
