@@ -7,6 +7,7 @@ import {ImPower} from 'react-icons/im';
 import {ImMan} from 'react-icons/im';
 import {GiWorld} from 'react-icons/gi';
 import Card from '../Components/Card';
+import axios from 'axios';
 // import reducer from '../reducers/reducer';
 import '../index.css';
 const initialState={
@@ -19,25 +20,46 @@ const initialState={
     opacitySword:'',
     opacityFleau:'',
     opacityArche:'',
-    opacityAxe:''
+    opacityAxe:'',
+    loading:true
 };
 let i=0;
 const reducer=(state,action)=>
 {
-    const Avatar=['avatar1','avatar2','avatar3','avatar4','avatar5','avatar6','avatar7','avatar8','avatar9','avatar10','avatar11','avatar12'];
+    const Avatar=['avatar1','avatar2','avatar3'];
     switch(action.type)
     {
+        case 'handleCreate':
+                const person={
+                    player:{
+                        image:state.image,
+                        agility:state.agility,
+                        power:state.power,
+                        intelligence:state.intelligence,
+                        weapon:state.weapon
+                    },
+                    name:'bla'
+                }
+
+                axios.post('https://otmane-gaming-default-rtdb.firebaseio.com/person.json',person)
+                .then((response)=>{return {...state,loading:false}});
+                
         case 'clickSword':
             // console.log(state.image);
             // console.log(action.payLoad);
             return {...state,weapon:action.payLoad,opacitySword:'opacitySword',opacityFleau:'',opacityArche:'',opacityAxe:''};
+
+            
         case 'clickAxe':
             // console.log(state.image);
             // console.log(action.payLoad);
             return {...state,weapon:action.payLoad,opacitySword:'',opacityFleau:'',opacityArche:'',opacityAxe:'opacityAxe'};
+        case 'titleAxe':
+            return {...state,weapon:action.payLoad,opacitySword:'',opacityFleau:'',opacityArche:'',opacityAxe:'opacityAxe'};
         case 'clickArche':
             // console.log(action.payLoad);
             return {...state,weapon:action.payLoad,opacitySword:'',opacityFleau:'',opacityArche:'opacityArche',opacityAxe:''};
+    
         case 'clickFleau':
             // console.log(state.image);
             // console.log(action.payLoad);
@@ -133,7 +155,11 @@ const reducer=(state,action)=>
                 state.intelligence--;
                 state.point++;
             }
-            return {...state,intelligence:state.intelligence+1,point:state.point-1};
+            return {...state,intelligence:state.intelligence+1,point:state.point-1}
+        case 'RESET':
+            // let i=0;
+            //   console.log(state.image)
+            return {...state,image:Avatar[0],power:0,agility:0,intelligence:0,point:14,weapon:'',opacitySword:'',opacityFleau:'',opacityArche:'',opacityAxe:''};    
         case 'minIntelligence':
             // console.log(state.image);
             if(state.intelligence==0)
@@ -144,15 +170,29 @@ const reducer=(state,action)=>
             return {...state,intelligence:state.intelligence-1,point:state.point+1};
         // case 'clickWeapon':
         //     console.log(action.payLoad);
-        case 'RESET':
-            // let i=0;
-              console.log('reset')
-            // return {...state,image:Avatar[i],power:0,agility:0,intelligence:0,point:14,weapon:'',opacitySword:'',opacityFleau:'',opacityArche:'',opacityAxe:''}    
+
+        default: return null;
+        
     }
 }
 
 
 const Person = () => {
+    // const handleCreate=()=>
+    // {
+    //     const person={
+    //         player:{
+    //             image:state.image,
+    //             agility:state.agility,
+    //             power:state.power,
+    //             intelligence:state.intelligence,
+    //             weapon:state.weapon
+    //         },
+    //         name:'otmane'
+    //     }
+
+    //     axios.post('https://otmane-gaming-default-rtdb.firebaseio.com/person.json',person);
+    // }
     // const Avatar=['avatar1','avatar2','avatar3','avatar4','avatar5','avatar6','avatar7','avatar8','avatar9','avatar10','avatar11','avatar12'];
     // const [image,setImage]='avatar1';
     const [state,dispatch]=useReducer(reducer,initialState);
@@ -198,7 +238,7 @@ const Person = () => {
                 </div>
                 <div onClick={(e)=>{dispatch({type:'clickAxe',payLoad:e.target.className})}} className="axe">
                     <img src={require('../assets/armes/axe.png').default} className="axe" id={state.opacityAxe}/>
-                    <h3 className="axe">Axe</h3>
+                    <h3 onClick={(e)=>{console.log(e.target.className)}} className="axe">Axe</h3>
                 </div>
                 <div onClick={(e)=>{dispatch({type:'clickArche',payLoad:e.target.className})}} className="arche">
                     <img src={require('../assets/armes/arche.png').default} className="arche" id={state.opacityArche}/>
@@ -210,8 +250,8 @@ const Person = () => {
                 </div>
             </div>
             <div className="button">
-                <button className="btn btn-success btn-lg">Create</button>
-                <button className="btn btn-warning btn-lg" onClick={() => dispatch({type:'RESET'})}>Reset</button>
+                <button className="btn btn-success btn-lg" onClick={() => dispatch({type:'handleCreate'})}>Create</button>
+                <button className="btn btn-warning btn-lg" onClick={() =>dispatch({type:'RESET'})}>Reset</button>
             </div>
         </div>
     );
