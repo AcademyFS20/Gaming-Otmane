@@ -489,3 +489,12 @@ margin-bottom:30px;
 {
   opacity:1;
 }
+
+        /********* Personnage ********/
+
+.list-persona
+{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:space-around;
+}

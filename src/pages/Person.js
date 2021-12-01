@@ -1,4 +1,4 @@
-import React,{useReducer,useState} from 'react';
+import React,{useReducer,useState,useEffect} from 'react';
 import {GrFormPreviousLink} from 'react-icons/gr';
 import {GrFormNextLink} from 'react-icons/gr';
 import {AiOutlinePlusCircle} from 'react-icons/ai';
@@ -7,10 +7,12 @@ import {ImPower} from 'react-icons/im';
 import {ImMan} from 'react-icons/im';
 import {GiWorld} from 'react-icons/gi';
 import Card from '../Components/Card';
+import swal from 'sweetalert';
 import axios from 'axios';
 // import reducer from '../reducers/reducer';
 import '../index.css';
 const initialState={
+    // data:[],
     image:'avatar1',
     power:0,
     agility:0,
@@ -21,7 +23,7 @@ const initialState={
     opacityFleau:'',
     opacityArche:'',
     opacityAxe:'',
-    loading:true
+    // loading:true
 };
 let i=0;
 const reducer=(state,action)=>
@@ -29,20 +31,19 @@ const reducer=(state,action)=>
     const Avatar=['avatar1','avatar2','avatar3'];
     switch(action.type)
     {
-        case 'handleCreate':
-                const person={
-                    player:{
-                        image:state.image,
-                        agility:state.agility,
-                        power:state.power,
-                        intelligence:state.intelligence,
-                        weapon:state.weapon
-                    },
-                    name:'bla'
-                }
-
-                axios.post('https://otmane-gaming-default-rtdb.firebaseio.com/person.json',person)
-                .then((response)=>{return {...state,loading:false}});
+        // case 'handleCreate':
+        //         const person={
+        //             player:{
+        //                 image:state.image,
+        //                 agility:state.agility,
+        //                 power:state.power,
+        //                 intelligence:state.intelligence,
+        //                 weapon:state.weapon
+        //             },
+        //             name:'bla'
+        //         }
+        //         // console.log(person);
+        //         axios.post('https://otmane-gaming-default-rtdb.firebaseio.com/person.json',person).then((response)=>{console.log(response)});
                 
         case 'clickSword':
             // console.log(state.image);
@@ -170,6 +171,19 @@ const reducer=(state,action)=>
             return {...state,intelligence:state.intelligence-1,point:state.point+1};
         // case 'clickWeapon':
         //     console.log(action.payLoad);
+        // case 'handleCreate':
+        //         const person={
+        //             player:{
+        //                 image:state.image,
+        //                 agility:state.agility,
+        //                 power:state.power,
+        //                 intelligence:state.intelligence,
+        //                 weapon:state.weapon
+        //             },
+        //             name:'bla'
+        //         }
+        //         // console.log(person);
+        //         axios.post('https://otmane-gaming-default-rtdb.firebaseio.com/person.json',person).then((response)=>{console.log(response)});
 
         default: return null;
         
@@ -178,18 +192,46 @@ const reducer=(state,action)=>
 
 
 const Person = () => {
-    // const handleCreate=()=>
-    // {
-    //     const person={
-    //         player:{
-    //             image:state.image,
-    //             agility:state.agility,
-    //             power:state.power,
-    //             intelligence:state.intelligence,
-    //             weapon:state.weapon
-    //         },
-    //         name:'otmane'
-    //     }
+    const [loading,setLoading]=useState(false);
+    const [message,setMessage] = useState("");
+    const [data,setData]=useState([]);
+   
+    const handleCreate=()=>{
+                // console.log('Hello');
+                const person={
+                    player:{
+                        image:state.image,
+                        agility:state.agility,
+                        power:state.power,
+                        intelligence:state.intelligence,
+                        weapon:state.weapon
+                    },
+                    name:'bla'
+                }
+                // console.log(person);
+                setLoading(true)
+                let messager=loading ? "":"loading ...";
+                // console.log(messager);
+                swal(messager);
+                axios.post('https://otmane-gaming-default-rtdb.firebaseio.com/person.json',person).then((response)=>{
+                    setLoading(false);
+                    setMessage("person created");
+                swal(message ? "Person created" :"");
+                axios.get('https://otmane-gaming-default-rtdb.firebaseio.com/person.json').then((reponse)=>{setData(Object.values(reponse.data))});
+                });
+                // (loading)?console.log("Loading..."):console.log("Your personna is created");
+                // console.log(loading);
+                // useEffect(()=>{
+                //     if(loading)
+                //     {
+                //         console.log("Loading...");
+                //     }
+                //     else
+                //     {
+                //         console.log('Your personna is created');
+                //     }
+                // },[loading]);
+            }
 
     //     axios.post('https://otmane-gaming-default-rtdb.firebaseio.com/person.json',person);
     // }
@@ -250,9 +292,21 @@ const Person = () => {
                 </div>
             </div>
             <div className="button">
-                <button className="btn btn-success btn-lg" onClick={() => dispatch({type:'handleCreate'})}>Create</button>
+                <button className="btn btn-success btn-lg" onClick={handleCreate}>Create</button>
                 <button className="btn btn-warning btn-lg" onClick={() =>dispatch({type:'RESET'})}>Reset</button>
             </div>
+            <div className="list-persona">{
+                data.map((item)=>{
+                    return (<div className="persona">
+                        <img src={require('../assets/persos/avatars/'+item.player.image+'.png').default}/>
+                        <h3>Agility:{item.player.agility}</h3>
+                        <h3>intelligence:{item.player.intelligence}</h3>
+                        <h3>Power:{item.player.power}</h3>
+                        <h3>Weapon:{item.player.weapon}</h3>
+                        </div>
+                        )
+                })
+            }</div>
         </div>
     );
 };
