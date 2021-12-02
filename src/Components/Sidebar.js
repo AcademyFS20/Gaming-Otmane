@@ -12,7 +12,7 @@ const Sidebar = (props) => {
                     <li><Link to="/about" onClick={props.enterSide}>About us</Link></li>
                     <li><Link to="/person" onClick={props.enterSide}>Create Person</Link></li>
                     <li><Link to="/faq" onClick={props.enterSide}>FAQ</Link></li>
-                    <li><Link to="/error" onClick={props.enterSide}>Error</Link></li>
+                    {/* <li><Link to="/error" onClick={props.enterSide}>Error</Link></li> */}
                 </ul>
                 <AiOutlineClose className="close-icon" onClick={props.enterSide}/>
             </div>

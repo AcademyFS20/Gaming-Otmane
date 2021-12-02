@@ -193,7 +193,7 @@ const reducer=(state,action)=>
 
 const Person = () => {
     const [loading,setLoading]=useState(false);
-    const [message,setMessage] = useState("");
+    const [message,setMessage] = useState(true);
     const [data,setData]=useState([]);
    
     const handleCreate=()=>{
@@ -215,7 +215,7 @@ const Person = () => {
                 swal(messager);
                 axios.post('https://otmane-gaming-default-rtdb.firebaseio.com/person.json',person).then((response)=>{
                     setLoading(false);
-                    setMessage("person created");
+                    setMessage(true);
                 swal(message ? "Person created" :"");
                 // axios.get('https://otmane-gaming-default-rtdb.firebaseio.com/person.json').then((reponse)=>{setData(Object.values(reponse.data))});
                 });}

@@ -108,6 +108,9 @@ body
 .sidebar h1
 {
   margin-left:10px;
+  margin-top:10px;
+  width:80%;
+  display:inline-block;
 }
 .sidebar a:hover
 {
@@ -402,7 +405,7 @@ margin-bottom:30px;
 .about div p
 {
   width:35%;
-  margin-right:15%;
+  /* margin-right:15%; */
 }
 .about div img
 {
@@ -465,7 +468,7 @@ margin-bottom:30px;
 }
 .error img
 {
-  width:500px;
+  width:50%;
   height:auto;
 }
 .error span
@@ -507,8 +510,8 @@ margin-bottom:30px;
   height:2px;
   background-color:blue;
   display:block;
-  position:absolute;
-  left:43%;
+  /* position:absolute;
+  left:43%; */
   margin:10px auto 10px auto;
 }
 /* hr
@@ -653,6 +656,10 @@ margin-bottom:30px;
   {
     font-size:1.5rem;
   }
+  .title-persona::after
+  {
+    width:100px;
+  }
   .person img
   {
     width:100px;
@@ -706,26 +713,106 @@ margin-bottom:30px;
     width:100%;
   }
 }
-@media screen and(max-width:990px)
+@media screen and (max-width:990px)
 {
   .carousel-control-prev
   {
-    left:100px !important;
+    left:50px !important;
     /* margin-left:100px;
     color:green; */
   }
+  .carousel-control-next
+  {
+    margin-right:50px;
+  }
 }
-@media screen and(max-width:513px)
+@media screen and (max-width:513px)
 {
   .div-show p
   {
     width:80%;
   }
 }
-@media screen and(max-width:500px)
+@media screen and (max-width:370px)
 {
-  .div-show p
+  .sidebar h1
   {
-    width:80%;
+    font-size:1.8rem;
+    margin-top:15px;
+  }
+}
+@media screen and (max-width:600px)
+{
+  .about div
+  {
+    flex-direction:column;
+    align-items:center;
+    /* width:50%; */
+  }
+  .about p
+  {
+    margin-right:0;
+    /* width:80%; */
+  }
+}
+@media screen and (min-width:600px)
+{
+  .about p
+  {
+    margin-right:15%;
+  }
+}
+@media screen and (max-width:560px)
+{
+  .carousel-inner img
+  {
+    width:150px;
+  }
+}
+@media screen and (max-width:448px)
+{
+  .carousel span
+  {
+    font-size:1.5rem;
+  }
+}
+@media screen and (max-width:366px)
+{
+  .carousel span
+  {
+    font-size:1.2rem;
+  }
+  .carousel-inner img
+  {
+    width:100px;
+  }
+}
+@media screen and (max-width:316px)
+{
+  .carousel-control-prev
+  {
+    left:20px !important;
+    /* margin-left:100px;
+    color:green; */
+  }
+  .carousel-control-next
+  {
+    margin-right:20px;
+  }
+}
+@media screen and (max-width:368px)
+{
+  #first-div
+  {
+    flex-direction:column;
+    align-items:center;
+  }
+}
+@media screen and (max-width:500px)
+{
+  .error img
+  {
+    width:90%;
+    height:auto;
   }
 }

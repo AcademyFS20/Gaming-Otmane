@@ -30,7 +30,7 @@ const Navbar = () => {
                         <li><Link to="/about">About us</Link></li>
                         <li><Link to="/person">Create Person</Link></li>
                         <li><Link to="/faq">FAQ</Link></li>
-                        <li><Link to="/error">Error</Link></li>
+                        {/* <li><Link to="/error">Error</Link></li> */}
                     </ul>
                 </div>
                 <div className='social'>
