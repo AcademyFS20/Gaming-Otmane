@@ -6,7 +6,7 @@ import '../index.css';
 const Sidebar = (props) => {
     return (
             <div className={'sidebar '+props.show}>
-                <h1>This is a Sidebary</h1>
+                <h1>This is a Sidebar</h1>
                 <ul>
                     <li><Link to="/" onClick={props.enterSide}>Home</Link></li>
                     <li><Link to="/about" onClick={props.enterSide}>About us</Link></li>

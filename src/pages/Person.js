@@ -13,7 +13,7 @@ import axios from 'axios';
 import '../index.css';
 const initialState={
     // data:[],
-    image:'avatar1',
+    image:'avatar4',
     power:0,
     agility:0,
     intelligence:0,
@@ -28,7 +28,7 @@ const initialState={
 let i=0;
 const reducer=(state,action)=>
 {
-    const Avatar=['avatar1','avatar2','avatar3'];
+    const Avatar=['avatar4','avatar2','avatar3'];
     switch(action.type)
     {
         // case 'handleCreate':
@@ -217,21 +217,14 @@ const Person = () => {
                     setLoading(false);
                     setMessage("person created");
                 swal(message ? "Person created" :"");
-                axios.get('https://otmane-gaming-default-rtdb.firebaseio.com/person.json').then((reponse)=>{setData(Object.values(reponse.data))});
-                });
+                // axios.get('https://otmane-gaming-default-rtdb.firebaseio.com/person.json').then((reponse)=>{setData(Object.values(reponse.data))});
+                });}
                 // (loading)?console.log("Loading..."):console.log("Your personna is created");
                 // console.log(loading);
-                // useEffect(()=>{
-                //     if(loading)
-                //     {
-                //         console.log("Loading...");
-                //     }
-                //     else
-                //     {
-                //         console.log('Your personna is created');
-                //     }
-                // },[loading]);
-            }
+                useEffect(()=>{
+                    axios.get('https://otmane-gaming-default-rtdb.firebaseio.com/person.json').then((reponse)=>{setData(Object.values(reponse.data))});
+                },[loading]);
+            
 
     //     axios.post('https://otmane-gaming-default-rtdb.firebaseio.com/person.json',person);
     // }
@@ -242,33 +235,34 @@ const Person = () => {
     // console.log(state.image);
     return (
         <div>
-            <h1>Your own Person</h1>
+            <h1 className="title-persona">Your own Person</h1>
+            {/* <hr/> */}
             <div className="person-header">
                 <div className="person">
-                    <GrFormPreviousLink onClick={()=>{dispatch({type:'prevImage'})}}/>
+                    <GrFormPreviousLink className="prev" onClick={()=>{dispatch({type:'prevImage'})}}/>
                     {/* {console.log(state.image)} */}
                     <img src={require('../assets/persos/avatars/'+state.image+'.png').default}/>
-                    <GrFormNextLink onClick={()=>dispatch({type:'nextImage'})}/>
+                    <GrFormNextLink className="next" onClick={()=>dispatch({type:'nextImage'})}/>
                 </div>
                 <div className="point">
                     <h3>Points left:<span>{state.point}</span></h3>
                     <div>
                         <ImPower/>
-                        <AiOutlinePlusCircle onClick={()=>{dispatch({type:'addPower'})}}/>
-                        <span>{state.power}</span>
-                        <AiOutlineMinusCircle onClick={()=>{dispatch({type:'minPower'})}}/>
+                        <AiOutlinePlusCircle className="plus" onClick={()=>{dispatch({type:'addPower'})}}/>
+                        <span className="power">{state.power}</span>
+                        <AiOutlineMinusCircle className="minus" onClick={()=>{dispatch({type:'minPower'})}}/>
                     </div>
                     <div>
                         <ImMan/>
-                        <AiOutlinePlusCircle onClick={()=>{dispatch({type:'addAgility'})}}/>
-                        <span>{state.agility}</span>
-                        <AiOutlineMinusCircle onClick={()=>{dispatch({type:'minAgility'})}}/>
+                        <AiOutlinePlusCircle className="plus" onClick={()=>{dispatch({type:'addAgility'})}}/>
+                        <span className="agility">{state.agility}</span>
+                        <AiOutlineMinusCircle className="minus" onClick={()=>{dispatch({type:'minAgility'})}}/>
                     </div>
                     <div>
                         <GiWorld/>
-                        <AiOutlinePlusCircle onClick={()=>{dispatch({type:'addIntelligence'})}}/>
-                        <span>{state.intelligence}</span>
-                        <AiOutlineMinusCircle onClick={()=>{dispatch({type:'minIntelligence'})}}/>
+                        <AiOutlinePlusCircle className="plus" onClick={()=>{dispatch({type:'addIntelligence'})}}/>
+                        <span className="intelligence">{state.intelligence}</span>
+                        <AiOutlineMinusCircle className="minus" onClick={()=>{dispatch({type:'minIntelligence'})}}/>
                     </div>
                 </div>
             </div>
@@ -299,10 +293,10 @@ const Person = () => {
                 data.map((item)=>{
                     return (<div className="persona">
                         <img src={require('../assets/persos/avatars/'+item.player.image+'.png').default}/>
-                        <h3>Agility:{item.player.agility}</h3>
-                        <h3>intelligence:{item.player.intelligence}</h3>
-                        <h3>Power:{item.player.power}</h3>
-                        <h3>Weapon:{item.player.weapon}</h3>
+                        <h3>Agility:<span className="player-red">{item.player.agility}</span></h3>
+                        <h3>intelligence:<span className="player-red">{item.player.intelligence}</span></h3>
+                        <h3>Power:<span className="player-red">{item.player.power}</span></h3>
+                        <h3>Weapon:<span className="player-red">{item.player.weapon}</span></h3>
                         </div>
                         )
                 })

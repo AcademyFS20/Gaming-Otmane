@@ -100,10 +100,30 @@ body
     display:none;
   }
 }
+.sidebar a
+{
+  font-size:2rem;
+  margin-left:10px;
+}
+.sidebar h1
+{
+  margin-left:10px;
+}
+.sidebar a:hover
+{
+  text-decoration:none;
+  color:white;
+}
+.sidebar li:hover
+{
+  background-color:blue;
+  color:white;
+}
 .sidebar
 {
-  position:absolute;
+  position:fixed;
   top:0;
+  bottom:0;
   /* left:0; */
   z-index:1;
   background-color:var(--clr-primary-2);
@@ -124,6 +144,8 @@ body
   position:absolute;
   top:20px;
   right:20px;
+  width:35px;
+  height:auto;
 }
 
              /********  page Home  ************/
@@ -453,6 +475,47 @@ margin-bottom:30px;
 
          /******** Person ********/
 
+.title-persona
+{
+  text-align:center;
+}
+.power,.intelligence,.agility
+{
+  font-size:1.5rem;
+  position:relative;
+  top:4px;
+}
+.plus,.minus
+{
+  color:red;
+}
+.next,.prev
+{
+  width:100px;
+  height:50px;
+}
+
+.title-persona::after
+{
+  content:'';
+  width:200px;
+  height:2px;
+  background-color:blue;
+  display:block;
+  position:absolute;
+  left:43%;
+  margin-top:10px;
+}
+/* hr
+{
+  width:50%;
+  height:3px;
+  color:blue;
+} */
+/* .fleau,.axe,.arche,.sword
+{
+
+} */
 .person svg
 {
   font-size:2rem;
@@ -465,6 +528,7 @@ margin-bottom:30px;
 .point
 {
   align-self:center;
+  text-align:center;
 }
 .point svg
 {
@@ -474,6 +538,10 @@ margin-bottom:30px;
 {
   display:flex;
   justify-content:space-around;
+}
+.card-person h3
+{
+  text-align:center;
 }
 .card-person img
 {
@@ -485,6 +553,10 @@ margin-bottom:30px;
   display:flex;
   justify-content:center;
 }
+.button .btn
+{
+  margin-right:10px;
+}
 #opacitySword,#opacityArche,#opacityAxe,#opacityFleau
 {
   opacity:1;
@@ -494,7 +566,124 @@ margin-bottom:30px;
 
 .list-persona
 {
-  display:flex;
+  /* display:flex;
   flex-wrap:wrap;
   justify-content:space-around;
+  align-content:space-between; */
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  grid-column-gap:10px;
+  grid-row-gap:10px;
+  margin:10px 0 10px 0;
 }
+.persona
+{
+  border:2px solid red;
+  padding:10px;
+  text-align:center;
+}
+.persona h3
+{
+  font-size:1.5rem;
+}
+.player-red
+{
+  color:red;
+}
+
+             /******** responsive *********/
+
+@media screen and (max-width:800px)
+{
+  .card-person
+  {
+    flex-direction:column;
+    align-items:center;
+  }
+  div.sword,div.axe,div.arche,div.fleau
+  {
+    width:30%;
+  }
+}
+@media screen and (max-width:636px)
+{
+  .person-header
+  {
+    flex-direction:column;
+    align-items:center;
+  }
+}
+@media screen and (max-width:698px)
+{
+  .list-persona
+  {
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+@media screen and (max-width:467px)
+{
+  .list-persona
+  {
+    grid-template-columns:1fr;
+  }
+}
+@media screen and (max-width:500px)
+{
+  .title-persona
+  {
+    font-size:2rem;
+  }
+  .title-persona::after
+  {
+    left:30%;
+  }
+  .person img
+  {
+    width:150px;
+  }
+}
+@media screen and (max-width:358px)
+{
+  .title-persona
+  {
+    font-size:1.5rem;
+  }
+  .person img
+  {
+    width:100px;
+  }
+  .prev,.next
+  {
+    width:30px;
+  }
+  .Logo img
+  {
+    width:130px;
+  }
+}
+@media screen and (max-width:512px)
+{
+  footer div
+  {
+    flex-direction:column;
+    align-items:center;
+  }
+  footer div ul
+  {
+    text-align:center;
+  }
+}
+@media screen and (max-width:512px)
+{
+  .card-person img
+  {
+    width:130px;
+  }
+}
+/* @media screen and(max-width:800px)
+{
+  .card-person
+  {
+    flex-direction:column;
+  }
+} */
