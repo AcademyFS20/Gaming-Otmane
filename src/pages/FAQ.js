@@ -22,31 +22,31 @@ const FAQ = () => {
         <div className="container faq">
             <h1>FAQ:</h1>
             <div className="div-show" onClick={()=>{setToggle1(!toggle1)}}>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.<span>{signe1}</span></p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p><span>{signe1}</span>
             </div>
             <div className={"div-hidden "+classToggle1}>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla id arcu eu nulla imperdiet fermentum ac quis lectus. Nulla ultricies lacus ut risus semper, a ultricies lectus congue. Nulla et rutrum orci. Maecenas eget erat sit amet neque venenatis dapibus. Aenean dui metus, congue eget vehicula eu, iaculis at ligula.</p>
             </div>
             <div className="div-show" onClick={()=>{setToggle2(!toggle2)}}>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.<span>{signe2}</span></p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p><span>{signe2}</span>
             </div>
             <div className={"div-hidden "+classToggle2}>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla id arcu eu nulla imperdiet fermentum ac quis lectus. Nulla ultricies lacus ut risus semper, a ultricies lectus congue. Nulla et rutrum orci. Maecenas eget erat sit amet neque venenatis dapibus. Aenean dui metus, congue eget vehicula eu, iaculis at ligula.</p>
             </div>
             <div className="div-show" onClick={()=>{setToggle3(!toggle3)}}>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.<span>{signe3}</span></p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p><span>{signe3}</span>
             </div>
             <div className={"div-hidden "+classToggle3}>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla id arcu eu nulla imperdiet fermentum ac quis lectus. Nulla ultricies lacus ut risus semper, a ultricies lectus congue. Nulla et rutrum orci. Maecenas eget erat sit amet neque venenatis dapibus. Aenean dui metus, congue eget vehicula eu, iaculis at ligula.</p>
             </div>
             <div className="div-show" onClick={()=>{setToggle4(!toggle4)}}>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.<span>{signe4}</span></p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p><span>{signe4}</span>
             </div>
             <div className={"div-hidden "+classToggle4}>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla id arcu eu nulla imperdiet fermentum ac quis lectus. Nulla ultricies lacus ut risus semper, a ultricies lectus congue. Nulla et rutrum orci. Maecenas eget erat sit amet neque venenatis dapibus. Aenean dui metus, congue eget vehicula eu, iaculis at ligula.</p>
             </div>
             <div className="div-show" onClick={()=>{setToggle5(!toggle5)}}>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.<span>{signe5}</span></p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p><span>{signe5}</span>
             </div>
             <div className={"div-hidden "+classToggle5}>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla id arcu eu nulla imperdiet fermentum ac quis lectus. Nulla ultricies lacus ut risus semper, a ultricies lectus congue. Nulla et rutrum orci. Maecenas eget erat sit amet neque venenatis dapibus. Aenean dui metus, congue eget vehicula eu, iaculis at ligula.</p>
